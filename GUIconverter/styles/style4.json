@@ -1,0 +1,15 @@
+{
+  "opening-tag": "{",
+  "closing-tag": "}",
+  "body": "<html>\n  <header>\n    <meta charset=\"utf-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n<style>\n.body { background-color: #212529; }\n.header { background-color: #012529; }\nnav ul { list-style: none; padding: 10px; display: flex; border-radius: 4px;  }\nnav ul li { padding: 10px; flex: 1; text-align: center; }\n.column { float: left; padding: 20px; background-color: #f5f5f5; border-radius: 5px; }\n.column.half { width: 45%; margin-right: 2%; margin: 10px; }\n.column.full { width: 95%; margin: 10px; }\n.column.quarter { width: 20%; margin-right: 1.333333%; margin: 10px; }\n.last { margin-right: 0; }\nclearfix { overflow: auto; }\na.button { padding: 10px 15px;  background-color: green; color: white; border-radius: 4px; display: inline-block; }\na.button-header { padding: 10px 15px; margin-right: 10px; background-color: #9ef9ff; color: black; border-radius: 4px; display: inline-block; }\n</style>\n    <title>Scaffold</title>\n  </header>\n  <body class=\"body\">\n    <main class=\"container\">\n      {}\n </main>\n   </body>\n</html>\n",
+  "header": "<div class=\"header\">\n  <nav>\n    <ul>\n      {}\n    </ul>\n  </nav>\n</div>\n",
+  "btn-header": "<a class=\"button-header\" href=\"#\">[]</a>\n",
+  "row": "<div class=\"clearfix\">{}</div>\n",
+  "single": "<div class=\"column full\">\n{}\n</div>\n",
+  "double": "<div class=\"column half\">\n{}\n</div>\n",
+  "quadruple": "<div class=\"column quarter\">\n{}\n</div>\n",
+  "btn-body": "<a class=\"button\" href=\"#\" role=\"button\">[]</a>\n",
+  "small-title": "<h4>[]</h4>",
+  "text": "<p>[]</p>\n",
+  "image": "<img src=\"https://placehold.co/400x140.png\" alt=\"\">"
+}
