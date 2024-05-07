@@ -34,12 +34,9 @@ def collate_fn(data, vocab):
     return images, targets, lengths
 
 
-# Image transformation function for resnet152: https://pytorch.org/docs/stable/torchvision/models.html
 def resnet_img_transformation(img_crop_size):
     return transforms.Compose([transforms.Resize((img_crop_size, img_crop_size)),
-                               transforms.ToTensor(),
-                               transforms.Normalize(mean=[0.485, 0.456, 0.406],
-                                                    std=[0.229, 0.224, 0.225])])
+                               transforms.ToTensor()])
 
 
 def save_model(models_folder_path, encoder, decoder, optimizer, epoch, loss, batch_size, vocab):
@@ -48,7 +45,7 @@ def save_model(models_folder_path, encoder, decoder, optimizer, epoch, loss, bat
     # Create the models folder if it's not already there
     MODELS_FOLDER.mkdir(parents=True, exist_ok=True)
 
-    rounded_loss = f'{loss:.4f}'
+    rounded_loss = f'{loss:.5f}'
     model_name = f"ED--epoch-{epoch}--loss-{rounded_loss}.pth"
     MODEL_PATH = MODELS_FOLDER / model_name
 

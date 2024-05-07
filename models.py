@@ -8,11 +8,10 @@ class Encoder(nn.Module):
     def __init__(self, embedding_size):
 
         super(Encoder, self).__init__()
-        resnet = models.resnet152(weights="IMAGENET1K_V2")
+        resnet = models.resnet18()
         modules = list(resnet.children())[:-1]
         self.resnet = nn.Sequential(*modules)
 
-        # Create a new fc layer based on the embedding size
         self.linear = nn.Linear(in_features=resnet.fc.in_features, out_features=embedding_size)
         self.BatchNorm = nn.BatchNorm1d(num_features=embedding_size, momentum=0.01)
 
