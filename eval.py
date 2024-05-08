@@ -3,7 +3,7 @@ from torch.utils.data import DataLoader
 from pathlib import Path
 from torchvision import transforms
 from dataset import Paint2CodeDataset
-from utils import collate_fn, save_model, ids_to_tokens, generate_visualization_object, resnet_img_transformation
+from utils import collate_fn, save_model, ids_to_tokens, generate_visualization_object, img_transformation
 from models import Encoder, Decoder
 from nltk.translate.bleu_score import corpus_bleu, SmoothingFunction
 from tqdm import tqdm
@@ -54,7 +54,7 @@ decoder.eval()
 print("Model loaded and set to evaluation mode.")
 
 # Image transformations
-transform_imgs = resnet_img_transformation(img_crop_size)
+transform_imgs = img_transformation(img_crop_size)
 
 # Data loader
 data_loader = DataLoader(

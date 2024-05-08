@@ -6,7 +6,7 @@ from tqdm import tqdm
 
 from vocab import Vocab
 from dataset import Paint2CodeDataset
-from utils import collate_fn, save_model, resnet_img_transformation
+from utils import collate_fn, save_model, img_transformation
 from models import Encoder, Decoder
 
 # Set parameters
@@ -33,8 +33,7 @@ assert len(vocab) > 0, "Vocabulary must be non-empty"
 device = torch.device("cuda" if torch.cuda.is_available() and use_cuda else "cpu")
 print(f"Using device: {device}")
 
-# Define image transformation using the ResNet specs
-transform_imgs = resnet_img_transformation(img_crop_size)
+transform_imgs = img_transformation(img_crop_size)
 
 train_loader = DataLoader(
     Paint2CodeDataset(data_path, split, vocab, transform=transform_imgs),

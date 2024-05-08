@@ -34,7 +34,7 @@ def collate_fn(data, vocab):
     return images, targets, lengths
 
 
-def resnet_img_transformation(img_crop_size):
+def img_transformation(img_crop_size):
     return transforms.Compose([transforms.Resize((img_crop_size, img_crop_size)),
                                transforms.ToTensor()])
 
