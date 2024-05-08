@@ -35,8 +35,10 @@ def collate_fn(data, vocab):
 
 
 def img_transformation(img_crop_size):
-    return transforms.Compose([transforms.Resize((img_crop_size, img_crop_size)),
-                               transforms.ToTensor()])
+    return transforms.Compose([
+        transforms.Resize((img_crop_size, img_crop_size)),
+        transforms.ToTensor() 
+    ])
 
 
 def save_model(models_folder_path, encoder, decoder, optimizer, epoch, loss, batch_size, vocab):
