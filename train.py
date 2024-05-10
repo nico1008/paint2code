@@ -7,7 +7,7 @@ from tqdm import tqdm
 from vocab import Vocab
 from dataset import Paint2CodeDataset
 from utils import collate_fn, save_model, img_transformation
-from models import Encoder, Decoder
+from modelResnet18 import Encoder, Decoder
 
 # Set parameters
 data_path = Path("data", "all_data")

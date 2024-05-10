@@ -2,7 +2,7 @@ import torch
 from pathlib import Path
 from torchvision import transforms
 from utils import ids_to_tokens, resnet_img_transformation
-from models import Encoder, Decoder
+from modelResnet18 import Encoder, Decoder
 from tqdm import tqdm
 import pickle
 from GUIconverter.GUIconverter import GUIconverter
