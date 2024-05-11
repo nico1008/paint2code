@@ -2,7 +2,7 @@ import torch
 from pathlib import Path
 from torchvision import transforms
 from utils import ids_to_tokens, resnet_img_transformation
-from modelResnet18 import Encoder, Decoder
+from modelCustomCNN import Encoder, Decoder
 from tqdm import tqdm
 import pickle
 from GUIconverter.GUIconverter import GUIconverter
@@ -10,7 +10,6 @@ from IPython.display import display, HTML, Image
 import streamlit as st
 from vocab import Vocab
 from PIL import Image
-from torchvision import transforms
 
 st.set_page_config(page_title="Paint2Code", page_icon=":lower_left_paintbrush:")
 
