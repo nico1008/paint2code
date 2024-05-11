@@ -4,10 +4,11 @@ import torchvision.models as models
 
 # Paint2Code encoder
 class Encoder(nn.Module):
+    
     def __init__(self, embedding_size):
         
         super(Encoder, self).__init__()
-        mobilenet = models.mobilenet_v3_small()
+        mobilenet = models.mobilenet_v3_small(weights='DEFAULT')
         self.mobilenet = nn.Sequential(*list(mobilenet.features))
         self.linear = nn.Linear(in_features=576, out_features=embedding_size)
         self.BatchNorm = nn.BatchNorm1d(num_features=embedding_size, momentum=0.05)

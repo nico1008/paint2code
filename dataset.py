@@ -4,7 +4,9 @@ import torch
 
 class Paint2CodeDataset:
     def __init__(self, data_path, split, vocab, transform=None):
+        
         """Initialize the dataset with the path to the data, the dataset split, the vocabulary, and optional transformations."""
+        
         if split not in ["train", "validation", "test"]:
             raise ValueError(f"Invalid split name '{split}'. Expected one of: 'train', 'validation', 'test'.")
 
@@ -18,13 +20,19 @@ class Paint2CodeDataset:
 
         with dataset_file.open("r") as file:
             self.filenames = [line.strip() for line in file if line.strip()]
+            
 
     def __len__(self):
+        
         """Return the number of items in the dataset."""
+        
         return len(self.filenames)
+    
 
     def __getitem__(self, idx):
+        
         """Retrieve an image and its corresponding token IDs by index."""
+        
         img_path = self.data_path / f"{self.filenames[idx]}.png"
         tokens_path = self.data_path / f"{self.filenames[idx]}.gui"
 
@@ -39,9 +47,12 @@ class Paint2CodeDataset:
         token_ids = torch.tensor(token_ids, dtype=torch.long)  # Use torch.tensor directly with the proper type
 
         return image, token_ids
+    
 
     def parse_gui_token_file(self, filepath):
+        
         """Parse the GUI token file and return a list of tokens."""
+        
         if filepath.suffix != ".gui":
             raise ValueError(f"Expected a '.gui' file, got {filepath.suffix} instead.")
 
