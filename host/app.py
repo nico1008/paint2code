@@ -1,17 +1,15 @@
 import torch
 from pathlib import Path
 from torchvision import transforms
-from utils import ids_to_tokens, resnet_img_transformation
+from utils import ids_to_tokens, img_transformation
 from modelCustomCNN import Encoder, Decoder
-from tqdm import tqdm
 import pickle
 from GUIconverter.GUIconverter import GUIconverter
-from IPython.display import display, HTML, Image
 import streamlit as st
 from vocab import Vocab
 from PIL import Image
 
-st.set_page_config(page_title="Paint2Code", page_icon=":lower_left_paintbrush:")
+st.set_page_config(page_title="Paint2Code", page_icon=":lower_left_paintbrush:",layout="wide")
 
 st.markdown(
     """
@@ -42,15 +40,28 @@ with open("template.png", "rb") as file:
         file_name="Template.png",
         mime="image/png"
     )
+    
+st.markdown("# Select style")
 
+# Custom CSS to add space between the third and fourth radio items
+st.markdown("""
+<style>
+div.row-widget.stRadio > div:nth-of-type(3) {
+    margin-left: 150px;  /* Adjust the space as needed */
+}
+</style>
+""", unsafe_allow_html=True)
+
+# Radio buttons for style selection
 styleH = st.radio(
     "Select Style",
-    ["Style1","Style2","Style3"],
-    horizontal=True,
-    index=0 
+    ["Style1", "Style2", "Style3", "Style4", "Style5", "Style6"],
+    horizontal=True
 )
+
+# Config
 # Configuration parameters
-model_file_path = "./ED--epoch-15--loss-0.0465.pth" 
+model_file_path = "./ED--epoch-85--loss-0.01651.pth" 
 img_crop_size = 224
 seed = 42
 
@@ -58,9 +69,9 @@ seed = 42
 loaded_model = torch.load(model_file_path)
 vocab = loaded_model['vocab']
 
-embed_size = 256
-hidden_size = 512
-num_layers = 1
+embed_size = 64
+hidden_size = 256
+num_layers = 2
 
 encoder = Encoder(embed_size)
 decoder = Decoder(embed_size, hidden_size, len(vocab), num_layers)
@@ -72,7 +83,6 @@ decoder.load_state_dict(loaded_model["decoder_model_state_dict"])
 encoder.eval()
 decoder.eval()
 
-
 # Image upload section
 uploaded_file = st.file_uploader("Upload your painted image", type=['png', 'jpeg', 'jpg'])
 
@@ -81,7 +91,7 @@ if uploaded_file is not None:
      # Load the uploaded image
     image = Image.open(uploaded_file).convert('RGB')
 
-    transform = resnet_img_transformation(img_crop_size)
+    transform = img_transformation(img_crop_size)
     transformed_image = transform(image)
     
     features = encoder(transformed_image.unsqueeze(0))  
@@ -100,3 +110,21 @@ if uploaded_file is not None:
         file_name="generatedHTML.html",
         mime="text/html"
     )
+
+
+#Sidebar
+st.sidebar.markdown("# How to use")
+st.sidebar.markdown(
+    """
+    <div style='text-align: justify'>
+        Please download the provided template and begin your design. You are encouraged to incorporate anywhere from 2 to 5 header buttons. After completing your drawings, you may arrange up to 3 rows. Feel free to explore various combinations of the elements displayed in the example image.
+    </div>
+    """, 
+    unsafe_allow_html=True
+)
+st.sidebar.markdown("")
+imageExPath = "./imageExample.png"
+imagExample = Image.open(imageExPath)
+
+# Display the image in the sidebar
+st.sidebar.image(imagExample)
