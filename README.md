@@ -42,4 +42,4 @@ Upload your sketch through the web interface. The system will process the image 
 
 ## Authors
 
-- **Nicola Ivanov** - *Initial work* - [nico1008](https://github.com/nico1008)
+- **Nicola Ivanov** - [nico1008](https://github.com/nico1008)
