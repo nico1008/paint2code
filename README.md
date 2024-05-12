@@ -9,3 +9,31 @@ Welcome to Paint2Code, a powerful tool designed to transform your hand-drawn ske
 - **Easy to Use Interface**: User-friendly interface designed for both beginners and advanced users.
 - **Real-Time Previews**: Instantly see how your HTML will look in a web browser as soon as it's generated.
 - **Customization Options**: Allows users to specify attributes for elements, such as colors and dimensions.
+
+## Getting Started
+
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
+
+### Prerequisites
+
+What things you need to install the software and how to install them:
+
+```
+- Python 3.8 or higher
+- Pillow==10.3.0
+- torch==2.2.1
+- torchvision==0.17.1
+```
+
+### Installing
+
+A step-by-step series of examples that tell you how to get a development environment running:
+
+1. Clone the repo:
+   ```bash
+   git clone https://github.com/nico1008/paint2code
+   ```
+2. Install the required packages:
+   ```bash
+   pip install -r requirements.txt
+   ```
