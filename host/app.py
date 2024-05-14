@@ -9,70 +9,79 @@ import streamlit as st
 from vocab import Vocab
 from PIL import Image
 
-st.set_page_config(page_title="Paint2Code", page_icon=":lower_left_paintbrush:",layout="wide")
+# Streamlit page configuration
+st.set_page_config(page_title="Paint2Code", page_icon=":lower_left_paintbrush:", layout="wide")
 
+# Custom CSS for styling the UI elements
 st.markdown(
     """
     <style>
-    
     div[class*="stRadio"] > label > div[data-testid="stMarkdownContainer"] > p {
         font-size: 32px;
     }
-    
     .st-cs {  
         align-items: start;
     }
-    
     div[data-testid="stColumn"] > div:nth-child(1) > div:nth-child(1) {
         padding-top: 100px; 
     }
-    
+    div.row-widget.stRadio > div:nth-of-type(3) {
+        margin-left: 150px;  /* Adjust the space as needed */
+    }
     </style>
     """,
-    unsafe_allow_html=True)
+    unsafe_allow_html=True
+)
 
+# Page title
 st.markdown("# :blue[Paint2Code]:lower_left_paintbrush:")
 
+# Template download button
 with open("template.png", "rb") as file:
-    btnTemp = st.download_button(
+    st.download_button(
         label="Download Paint Template",
         data=file,
         file_name="Template.png",
         mime="image/png"
     )
-    
-st.markdown("# Select style")
 
-# Custom CSS to add space between the third and fourth radio items
-st.markdown("""
-<style>
-div.row-widget.stRadio > div:nth-of-type(3) {
-    margin-left: 150px;  /* Adjust the space as needed */
+# Dictionary to map display names to variable names
+style_options = {
+    "DarkBootstrap:crescent_moon:": "style1",
+    "LightBootstrap:sparkles:": "style2",
+    "ColorfulBootstrap:frame_with_picture:": "style3",
+    "DarkCSS:crescent_moon:": "style4",
+    "LightCSS:sparkles:": "style5",
+    "ColorfulCSS	:frame_with_picture:": "style6"
 }
-</style>
-""", unsafe_allow_html=True)
 
-# Radio buttons for style selection
-styleH = st.radio(
+# Create a list of display names for radio buttons
+display_names = list(style_options.keys())
+
+# Horizontal radio buttons for style selection
+selected_display_name = st.radio(
     "Select Style",
-    ["Style1", "Style2", "Style3", "Style4", "Style5", "Style6"],
+    display_names,
     horizontal=True
 )
 
-# Config
+# Get the corresponding style
+styleH = style_options[selected_display_name]
+
 # Configuration parameters
 model_file_path = "./ED--epoch-85--loss-0.01651.pth" 
 img_crop_size = 224
 seed = 42
 
 # Load the saved model
-loaded_model = torch.load(model_file_path)
+loaded_model = torch.load(model_file_path, map_location=torch.device('cpu'))
 vocab = loaded_model['vocab']
 
 embed_size = 64
 hidden_size = 256
 num_layers = 2
 
+# Initialize encoder and decoder
 encoder = Encoder(embed_size)
 decoder = Decoder(embed_size, hidden_size, len(vocab), num_layers)
 
@@ -88,31 +97,33 @@ uploaded_file = st.file_uploader("Upload your painted image", type=['png', 'jpeg
 
 if uploaded_file is not None:
     transpiler = GUIconverter(style=styleH)
-     # Load the uploaded image
+    # Load the uploaded image
     image = Image.open(uploaded_file).convert('RGB')
 
+    # Transform the image
     transform = img_transformation(img_crop_size)
     transformed_image = transform(image)
     
+    # Encode and decode the image
     features = encoder(transformed_image.unsqueeze(0))  
     predicted_ids = decoder.sample(features).cpu().data.numpy()  
     prediction = ids_to_tokens(vocab, predicted_ids)
 
+    # Transpile to HTML
     predicted_html_string = transpiler.transpile(prediction, insert_random_text=True)
-    # Placeholder for displaying generated code
-    HTMLcode = predicted_html_string
-    st.code(HTMLcode)
+    
+    # Display generated code
+    st.code(predicted_html_string)
     
     # Download button for the HTML code
     st.download_button(
         label="Download HTML",
-        data=HTMLcode,
+        data=predicted_html_string,
         file_name="generatedHTML.html",
         mime="text/html"
     )
 
-
-#Sidebar
+# Sidebar instructions
 st.sidebar.markdown("# How to use")
 st.sidebar.markdown(
     """
@@ -122,9 +133,8 @@ st.sidebar.markdown(
     """, 
     unsafe_allow_html=True
 )
-st.sidebar.markdown("")
+
+# Display example image in the sidebar
 imageExPath = "./imageExample.png"
 imagExample = Image.open(imageExPath)
-
-# Display the image in the sidebar
 st.sidebar.image(imagExample)
