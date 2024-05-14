@@ -11,5 +11,5 @@
   "btn-body": "<a class=\"btn-body\" href=\"#\" role=\"button\">[]</a>\n",
   "small-title": "<h4>[]</h4>",
   "text": "<p>[]</p>\n",
-  "image": "<img src=\"https://placehold.co/600x400.png\" alt=\"\">"
+  "image": "<img  src=\"https://placehold.co/600x400.png\" alt=\"\" class=\"img-fluid\">"
 }

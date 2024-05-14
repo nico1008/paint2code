@@ -3,6 +3,7 @@ from .node import Node
 from .utils import Utils
 from pathlib import Path
 
+#paint2code transpiler  
 class GUIconverter:
     def __init__(self, style='style1'):
         """
