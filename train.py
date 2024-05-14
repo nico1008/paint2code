@@ -72,6 +72,8 @@ optimizer = torch.optim.Adam(list(encoder.parameters()) + list(decoder.parameter
 train_losses = []
 test_losses = []
 
+print("Starting trainig...")
+
 for epoch in range(epochs):
     total_train_loss = 0
     num_batches = 0

@@ -7,6 +7,8 @@ Welcome to Paint2Code, a powerful tool designed to transform your hand-drawn ske
 - **Image to HTML Conversion**: Upload your sketch and receive HTML code.
 - **Support for Multiple HTML Elements**: Detects various shapes and interprets them as different HTML elements.
 - **Easy to Use Interface**: User-friendly interface designed for both beginners and advanced users.
+- **Multiple Encoder Models**: Utilize various encoder models to enhance accuracy and flexibility in interpreting sketches.
+- **Support for Multiple HTML Code Styles**: Choose from different HTML coding styles to match your project requirements.
 
 ## Getting Started
 
