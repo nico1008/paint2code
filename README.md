@@ -73,9 +73,20 @@ I suggest using the Jupyter notebooks for better data visualisation.
 
 #### Method 2: Using Python Scripts
 
-1. **Data Preparation**: Run `python prepareData.py`.
-2. **Model Training**: Run `python train.py`.
-3. **Model Evaluation**: Run `python eval.py`.
+1. **Data Preparation**:
+   ```bash
+   python prepareData.py
+   ```
+
+2. **Model Training**:
+   ```bash
+   python train.py
+   ```
+
+3. **Model Evaluation**:
+   ```bash
+   python eval.py
+   ```
 
 ## Acknowledgments
 
