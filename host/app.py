@@ -124,15 +124,25 @@ if uploaded_file is not None:
     )
 
 # Sidebar instructions
-st.sidebar.markdown("# How to use")
+st.sidebar.markdown("# :blue[Welcome to Paint2Code]")
 st.sidebar.markdown(
     """
-    <div style='text-align: justify'>
+    <div style='text-align: justify; font-size: 18px;'>
+        paint2code is a lightweight tool designed to transform your hand-drawn sketches into functional HTML code.
+    </div>
+    """,
+    unsafe_allow_html=True
+)
+st.sidebar.markdown("# :blue[How to use]")
+st.sidebar.markdown(
+    """
+    <div style='text-align: justify; font-size: 18px;'>
         Please download the provided template and begin your design. You are encouraged to incorporate anywhere from 2 to 5 header buttons. After completing your drawings, you may arrange up to 3 rows. Feel free to explore various combinations of the elements displayed in the example image.
     </div>
     """, 
     unsafe_allow_html=True
 )
+
 
 # Display example image in the sidebar
 imageExPath = "./imageExample.png"

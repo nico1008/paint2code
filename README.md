@@ -45,11 +45,41 @@ A step-by-step series of examples that tell you how to get a development environ
 
 ## Usage
 
-#TODO
+To use the original Paint2Code dataset, please visit [pain2code Dataset](https://www.kaggle.com/datasets/nico1008/paint2code) to download it.
+
+### Model Weights
+- CustomCNN: [Download here](https://www.dropbox.com/scl/fi/27xuj0qi6xrfbbdkyryva/ED-epoch-85-loss-0.01651.rar?rlkey=e20s38l7y02w6oativr5fuiw0&st=63xrfz6l&dl=0)
+- MobileNetV3: [Download here](https://www.dropbox.com/scl/fi/nfwdxlz07qo9fot0vhg42/ED-epoch-73-loss-0.03660.rar?rlkey=1trsupm6jdsm9fqsq44mljy3w&st=andynm0f&dl=0)
+- ResNet18: [Download here](https://www.dropbox.com/scl/fi/sk40o33fp7zfrk9lnvzgo/ED-epoch-105-loss-0.03323.rar?rlkey=5zku77indq6tolg4kyix276k8&st=1ppwhxlv&dl=0)
+
+### Data Placement
+Place your training data in the `.data/all_data` folder.
+
+### Methods of Use
+There are two methods to use this project: via Jupyter notebooks or Python scripts.
+I suggest using the Jupyter notebooks for better data visualisation.
+
+#### Method 1: Using Jupyter Notebooks
+
+1. **Data Preparation**: Open `prepareData.ipynb` and run all cells.
+2. **Model Training**: Open the appropriate notebook for desired model and run all cells:
+   - `trainCustomCNN.ipynb` for CustomCNN
+   - `trainMobileNet.ipynb` for MobileNetV3
+   - `trainResNet18.ipynb` for ResNet18
+3. **Model Evaluation**: Open the corresponding evaluation notebook and run all cells:
+   - `evalCustomCNN.ipynb` for CustomCNN
+   - `evalMobileNet.ipynb` for MobileNetV3
+   - `evalResNet18.ipynb` for ResNet18
+
+#### Method 2: Using Python Scripts
+
+1. **Data Preparation**: Run `python prepareData.py`.
+2. **Model Training**: Run `python train.py`.
+3. **Model Evaluation**: Run `python eval.py`.
 
 ## Acknowledgments
 
-I would like to thank the following resources and communities for their invaluable contributions and support:
+I would like to thank the following resources, communities and people for their invaluable contributions and support:
 
 - The [OpenCV](https://opencv.org/) team for their robust computer vision library.
 - The [PyTorch](https://pytorch.org/) community for their deep learning framework.
