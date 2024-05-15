@@ -1,6 +1,6 @@
 # Paint2Code
 
-Welcome to Paint2Code, a powerful tool designed to transform your hand-drawn sketches into functional HTML code. This innovative project leverages advanced image recognition and machine learning algorithms to interpret drawings and convert them into clean, structured HTML elements.
+Welcome to Paint2Code, a robust tool designed to transform your hand-drawn sketches into functional HTML code. This innovative project leverages advanced image recognition and machine learning algorithms to interpret drawings and convert them into clean, structured HTML elements.
 
 ## Features
 
@@ -20,7 +20,6 @@ What things you need to install the software and how to install them:
 
 ```
 - Python 3.8 or higher
-- ipython==8.12.3
 - matplotlib==3.8.0
 - nltk==3.8.1
 - numpy==1.26.4
