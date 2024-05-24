@@ -13,7 +13,7 @@ model_file_path = "./modelsCustomCNN/models/ED--epoch-85--loss-0.01651.pth"  #85
 data_path = Path("data", "all_data")
 use_cuda = True
 img_size = 224
-split = "validation"
+split = "test"
 batch_size = 4
 seed = 42
 

@@ -44,14 +44,14 @@ train_loader = DataLoader(
 )
 print("Data loader for train created successfully.")
 
-test_loader = DataLoader(
-    Paint2CodeDataset(data_path, "test", vocab, transform=transform_imgs),
+val_loader = DataLoader(
+    Paint2CodeDataset(data_path, "validation", vocab, transform=transform_imgs),
     batch_size=batch_size,
     collate_fn=lambda data: collate_fn(data, vocab=vocab),
     pin_memory=True if use_cuda else False,
     drop_last=True
 )
-print("Data loader for test created successfully.")
+print("Data loader for val created successfully.")
 
 # Model parameters
 embed_size = 64
@@ -68,68 +68,45 @@ print("Models are initialized and moved to the designated device.")
 criterion = torch.nn.CrossEntropyLoss()
 optimizer = torch.optim.Adam(list(encoder.parameters()) + list(decoder.parameters()), lr=lr)
 
-# Training and testing loops
-train_losses = []
-test_losses = []
-
-print("Starting trainig...")
+# Training and valing loops
+train_losses, val_losses = []
+print("Starting training...")
 
 for epoch in range(epochs):
-    total_train_loss = 0
-    num_batches = 0
-    encoder.train()  # Set the encoder to training mode
-    decoder.train()  # Set the decoder to training mode
+    total_train_loss = num_batches = 0
+    encoder.train()
+    decoder.train()
 
     for images, captions, lengths in train_loader:
-        images = images.to(device)
-        captions = captions.to(device)
+        images, captions = images.to(device), captions.to(device)
         optimizer.zero_grad()
         targets = torch.nn.utils.rnn.pack_padded_sequence(captions, lengths, batch_first=True)[0]
-
-        # Forward pass
-        features = encoder(images)
-        output = decoder(features, captions, lengths)
-
-        # Calculate loss
-        loss = criterion(output, targets)
-        total_train_loss += loss.item()
+        loss = criterion(decoder(encoder(images), captions, lengths), targets)
         loss.backward()
         optimizer.step()
+        total_train_loss += loss.item()
         num_batches += 1
 
-    avg_train_loss = total_train_loss / num_batches
-    train_losses.append(avg_train_loss)  # Append the average training loss
+    train_losses.append(total_train_loss / num_batches)
 
-    # Testing phase
-    encoder.eval()  # Set the encoder to evaluation mode
-    decoder.eval()  # Set the decoder to evaluation mode
-    total_test_loss = 0
-    num_test_batches = 0
+    encoder.eval()
+    decoder.eval()
+    total_val_loss = num_val_batches = 0
 
-    with torch.no_grad():  # No need to track gradients during testing
-        for images, captions, lengths in test_loader:
-            images = images.to(device)
-            captions = captions.to(device)
+    with torch.no_grad():
+        for images, captions, lengths in val_loader:
+            images, captions = images.to(device), captions.to(device)
             targets = torch.nn.utils.rnn.pack_padded_sequence(captions, lengths, batch_first=True)[0]
+            loss = criterion(decoder(encoder(images), captions, lengths), targets)
+            total_val_loss += loss.item()
+            num_val_batches += 1
 
-            # Forward pass
-            features = encoder(images)
-            output = decoder(features, captions, lengths)
+    val_losses.append(total_val_loss / num_val_batches)
 
-            # Calculate loss
-            loss = criterion(output, targets)
-            total_test_loss += loss.item()
-            num_test_batches += 1
+    print(f'Epoch {epoch}: Training Loss {train_losses[-1]:.4f}, val Loss {val_losses[-1]:.4f}')
 
-    avg_test_loss = total_test_loss / num_test_batches
-    test_losses.append(avg_test_loss)  # Append the average testing loss
-
-    # Print integrated loss statistics in one line
-    print(f'Epoch {epoch}: Training Loss {avg_train_loss:.4f}, Test Loss {avg_test_loss:.4f}')
-
-    # Save model checkpoint
     if epoch != 0 and epoch % save_after_epochs == 0:
-        save_model(models_dir, encoder, decoder, optimizer, epoch, avg_test_loss, batch_size, vocab)
-        print("Saved model checkpoint at epoch:", epoch)
+        save_model(models_dir, encoder, decoder, optimizer, epoch, val_losses[-1], batch_size, vocab)
+        print(f"Saved model checkpoint at epoch: {epoch}")
 
 print("Training completed!")
