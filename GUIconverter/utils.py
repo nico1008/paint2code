@@ -46,6 +46,6 @@ class Utils:
             elif "title" in key:
                 value = value.replace(TEXT_PLACE_HOLDER, "Title")
             elif "text" in key:
-                value = value.replace(TEXT_PLACE_HOLDER, Utils.get_random_text(length_text=56, space_number=7, with_upper_case=False))
+                value = value.replace(TEXT_PLACE_HOLDER, Utils.get_random_text(length_text=64, space_number=9, with_upper_case=False))
 
         return value
