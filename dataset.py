@@ -5,7 +5,10 @@ import torch
 class Paint2CodeDataset:
     def __init__(self, data_path, split, vocab, transform=None):
         
-        """Initialize the dataset with the path to the data, the dataset split, the vocabulary, and optional transformations."""
+        """Initialize the dataset with the path to the data,
+        the dataset split, the vocabulary,
+        and optional transformations.
+        """
         
         if split not in ["train", "validation", "test"]:
             raise ValueError(f"Invalid split name '{split}'. Expected one of: 'train', 'validation', 'test'.")

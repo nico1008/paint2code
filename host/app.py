@@ -113,7 +113,7 @@ if uploaded_file is not None:
     predicted_html_string = transpiler.transpile(prediction, insert_random_text=True)
     
     # Display generated code
-    st.code(predicted_html_string)
+    st.code(predicted_html_string, language="cshtml", line_numbers= True)
     
     # Download button for the HTML code
     st.download_button(

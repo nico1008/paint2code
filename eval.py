@@ -85,7 +85,6 @@ total_correct_tokens = 0
 total_tokens = 0
 
 for pred, targ in zip(predictions, targets):
-    # Предполагаем, что pred и targ уже являются списками токенов
     matched_tokens = sum(1 for p, t in zip(pred, targ) if p == t)
     total_correct_tokens += matched_tokens
     total_tokens += len(targ)
