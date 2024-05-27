@@ -47,7 +47,7 @@ class Decoder(nn.Module):
 
         return output
 
-    def sample(self, features, states=None, longest_sentence_length=100):
+    def sample(self, features, states=None, longest_sentence_length=110):
 
         sampled_ids = []
         inputs = features.unsqueeze(1)
