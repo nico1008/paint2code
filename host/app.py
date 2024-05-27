@@ -69,7 +69,7 @@ selected_display_name = st.radio(
 styleH = style_options[selected_display_name]
 
 # Configuration parameters
-model_file_path = "./ED--epoch-85--loss-0.01651.pth" 
+model_file_path = "./ED--epoch-92--loss-0.01324.pth" 
 img_crop_size = 224
 seed = 42
 

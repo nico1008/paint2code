@@ -7,39 +7,32 @@ import torch.nn.functional as F
 class CustomCNN(nn.Module):
     def __init__(self, output_size):
         super(CustomCNN, self).__init__()
-        # Convolutional layers
-        self.conv1 = nn.Conv2d(in_channels=3, out_channels=16, kernel_size=3, stride=1, padding=1)
-        self.conv2 = nn.Conv2d(in_channels=16, out_channels=32, kernel_size=3, stride=1, padding=1)
-        self.conv3 = nn.Conv2d(in_channels=32, out_channels=64, kernel_size=3, stride=1, padding=1)
         
-        # Initialize weights
+        self.conv1 = nn.Conv2d(in_channels=3, out_channels=8, kernel_size=3, stride=1, padding=1)
+        self.conv2 = nn.Conv2d(in_channels=8, out_channels=16, kernel_size=3, stride=1, padding=1)
+        self.conv3 = nn.Conv2d(in_channels=16, out_channels=8, kernel_size=3, stride=1, padding=1)
+        
         self._initialize_weights()
 
-        # Pooling layer
         self.pool = nn.MaxPool2d(kernel_size=2, stride=2, padding=0)
         
-        # Dropout layers after each pooling
-        self.dropout1 = nn.Dropout(0.15)  # Lower dropout after the first layer
-        self.dropout2 = nn.Dropout(0.25)  # Moderate dropout after the second layer
-        self.dropout3 = nn.Dropout(0.35)  # Higher dropout after the third layer
+        self.dropout1 = nn.Dropout(0.15)  
+        self.dropout2 = nn.Dropout(0.25)  
+        self.dropout3 = nn.Dropout(0.35)  
         
-        # Activation
         self.activation = nn.LeakyReLU(negative_slope=0.01)
         
-        # Fully connected layers
-        self.fc1 = nn.Linear(in_features=64 * 28 * 28, out_features=512)
+        self.fc1 = nn.Linear(in_features=8 * 28 * 28, out_features=512)
         self.fc2 = nn.Linear(in_features=512, out_features=output_size)
 
     def forward(self, x):
-        # Apply convolutions, activation function, pooling, and dropout
-        x = self.dropout1(self.pool(self.activation(self.conv1(x))))
-        x = self.dropout2(self.pool(self.activation(self.conv2(x))))
-        x = self.dropout3(self.pool(self.activation(self.conv3(x))))
         
-        # Flatten the output for the fully connected layer
+        x = self.dropout1(self.pool(self.activation(self.conv1(x)))) # (8, 112, 112)
+        x = self.dropout2(self.pool(self.activation(self.conv2(x)))) # (16, 56, 56)
+        x = self.dropout3(self.pool(self.activation(self.conv3(x)))) # (8, 28, 28)
+        
         x = x.view(x.size(0), -1)
         
-        # Fully connected layers with Activation and output
         x = self.activation(self.fc1(x))
         x = self.fc2(x)
         return x
