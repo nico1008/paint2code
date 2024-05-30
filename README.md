@@ -48,7 +48,7 @@ A step-by-step series of examples that tell you how to get a development environ
 To use the original Paint2Code dataset, please visit [pain2code Dataset](https://www.kaggle.com/datasets/nico1008/paint2code) to download it.
 
 ### Model Weights
-- CustomCNN: [Download here](https://www.dropbox.com/scl/fi/27xuj0qi6xrfbbdkyryva/ED-epoch-85-loss-0.01651.rar?rlkey=e20s38l7y02w6oativr5fuiw0&st=63xrfz6l&dl=0)
+- CustomCNN: [Download here](https://www.dropbox.com/scl/fi/xy8g4f89flzj60l8d73im/ED-epoch-92-loss-0.01324.pth?rlkey=1798g81kv4rbvb87octaatvo0&st=sbncrvxs&dl=0)
 - MobileNetV3: [Download here](https://www.dropbox.com/scl/fi/nfwdxlz07qo9fot0vhg42/ED-epoch-73-loss-0.03660.rar?rlkey=1trsupm6jdsm9fqsq44mljy3w&st=andynm0f&dl=0)
 - ResNet18: [Download here](https://www.dropbox.com/scl/fi/sk40o33fp7zfrk9lnvzgo/ED-epoch-105-loss-0.03323.rar?rlkey=5zku77indq6tolg4kyix276k8&st=1ppwhxlv&dl=0)
 
